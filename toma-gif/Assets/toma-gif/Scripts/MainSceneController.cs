@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
+using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 
 namespace tomagif
@@ -19,6 +21,12 @@ namespace tomagif
 
         [field: SerializeField]
         private HKUIDocument inGameDocument;
+
+        [field: SerializeField]
+        private float enemyMoveDuration;
+
+        [field: SerializeField]
+        private Ease enemyMoveEase;
 
         private readonly List<Actor> enemies = new();
 
@@ -52,6 +60,23 @@ namespace tomagif
                     // Handle false button click
                     Debug.Log("False button clicked");
                 }
+
+                var enemy = enemies[0];
+                enemies.RemoveAt(0);
+                Destroy(enemy.gameObject);
+                for (var i = 0; i < enemies.Count; i++)
+                {
+                    var toPosition = enemySpawnPointParent.GetChild(i).position;
+                    LMotion.Create(enemies[i].transform.position, toPosition, enemyMoveDuration)
+                        .WithEase(enemyMoveEase)
+                        .BindToPosition(enemies[i].transform)
+                        .AddTo(enemies[i].transform)
+                        .ToUniTask()
+                        .Forget();
+                }
+                var newSpawnPoint = enemySpawnPointParent.GetChild(enemies.Count);
+                var newEnemy = Instantiate(enemyPrefab, newSpawnPoint.position, Quaternion.identity);
+                enemies.Add(newEnemy);
             }
         }
     }
