@@ -66,5 +66,10 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj",
     },
-    "dotnet.defaultSolution": "toma-gif.sln"
+    "dotnet.defaultSolution": "toma-gif.sln",
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "text": "必ず日本語で簡潔に書いてください"
+        }
+    ]
 }
