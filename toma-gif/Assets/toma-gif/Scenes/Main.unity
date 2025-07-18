@@ -851,6 +851,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 5874938421314340083, guid: 622415c103c3f4d49be439d81632c8b5, type: 3}
   enemySpawnPointParent: {fileID: 1535397700}
   inGameDocument: {fileID: 1465102982}
+  enemyMoveDuration: 0.2
+  enemyMoveEase: 8
 --- !u!1 &1651034848
 GameObject:
   m_ObjectHideFlags: 0
