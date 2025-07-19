@@ -84,6 +84,10 @@ namespace tomagif
                     playerController.PlayAttackAnimation();
                     enemy.PlayGotoHellAnimation();
                 }
+                else
+                {
+                    enemy.PlayGotoHeavenAnimation();
+                }
 
                 if (isTrue && talkingIsTrueTalk || !isTrue && !talkingIsTrueTalk)
                 {
