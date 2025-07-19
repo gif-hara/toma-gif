@@ -4,6 +4,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
 using LitMotion;
+using LitMotion.Extensions;
 using UnityEngine;
 
 namespace tomagif
@@ -15,6 +16,10 @@ namespace tomagif
 
         [field: SerializeField]
         private HKUIDocument enemyPrefab;
+
+        [field: SerializeField]
+        private Transform cameraTransform;
+
 
         [field: SerializeField]
         private Transform enemySpawnPointParent;
@@ -36,6 +41,12 @@ namespace tomagif
 
         [field: SerializeField]
         private List<Evidence> evidences;
+
+        [field: SerializeField]
+        private float cameraShakeDuration;
+
+        [field: SerializeField]
+        private Vector3 cameraShakeStrength;
 
         private PlayerController playerController;
 
@@ -83,6 +94,11 @@ namespace tomagif
                 {
                     playerController.PlayAttackAnimation();
                     enemy.PlayGotoHellAnimation();
+                    LMotion.Shake.Create(Vector3.zero, cameraShakeStrength, cameraShakeDuration)
+                        .BindToPosition(cameraTransform)
+                        .AddTo(cameraTransform)
+                        .ToUniTask(cancellationToken: cancellationToken)
+                        .Forget();
                 }
                 else
                 {
