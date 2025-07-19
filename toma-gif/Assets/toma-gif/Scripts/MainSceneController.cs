@@ -119,10 +119,12 @@ namespace tomagif
                         experience = 0;
                         currentDifficultyLevel = Mathf.Min(currentDifficultyLevel + 1, evidenceCountMax - 1);
                     }
+                    audioManager.PlaySfx("Correct");
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
                 {
+                    audioManager.PlaySfx("Incorrect");
                     await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 
