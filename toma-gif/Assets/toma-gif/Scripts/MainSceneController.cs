@@ -29,7 +29,10 @@ namespace tomagif
         private Ease enemyMoveEase;
 
         [field: SerializeField]
-        private int evidenceCount;
+        private int difficultyLevelUpThreshold;
+
+        [field: SerializeField]
+        private int evidenceCountMax;
 
         [field: SerializeField]
         private List<Evidence> evidences;
@@ -45,6 +48,10 @@ namespace tomagif
         private Evidence talkingEvidence;
 
         private bool talkingIsTrueTalk;
+
+        private int experience = 0;
+
+        private int currentDifficultyLevel = 0;
 
         void Start()
         {
@@ -80,6 +87,12 @@ namespace tomagif
 
                 if (isTrue && talkingIsTrueTalk || !isTrue && !talkingIsTrueTalk)
                 {
+                    experience++;
+                    if (experience >= difficultyLevelUpThreshold)
+                    {
+                        experience = 0;
+                        currentDifficultyLevel = Mathf.Min(currentDifficultyLevel + 1, evidenceCountMax - 1);
+                    }
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
@@ -108,7 +121,7 @@ namespace tomagif
         {
             currentEvidences = evidences
                 .OrderBy(_ => Random.value)
-                .Take(evidenceCount)
+                .Take(currentDifficultyLevel + 1)
                 .ToList();
             talkingEvidence = currentEvidences[0];
             var isPositive = Random.value > 0.5f;

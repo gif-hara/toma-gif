@@ -664,6 +664,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1170941163}
     m_Modifications:
+    - target: {fileID: 4287220990654245562, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287220990654245562, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287220990654245562, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287220990654245562, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287220990654245562, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7578109759404580083, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -851,6 +871,8 @@ MonoBehaviour:
   enemyMoveDuration: 0.2
   enemyMoveEase: 8
   evidenceCount: 3
+  difficultyLevelUpThreshold: 5
+  evidenceCountMax: 3
   evidences:
   - {fileID: 11400000, guid: 4d5052eac9429e847bf3bf82a96a06cb, type: 2}
   - {fileID: 11400000, guid: f1d40baec9e7adb44a585a02c0a11f0f, type: 2}
