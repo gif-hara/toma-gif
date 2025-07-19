@@ -48,6 +48,9 @@ namespace tomagif
         [field: SerializeField]
         private Vector3 cameraShakeStrength;
 
+        [field: SerializeField]
+        private AudioManager audioManager;
+
         private PlayerController playerController;
 
         private readonly List<EnemyController> enemies = new();
@@ -100,10 +103,12 @@ namespace tomagif
                         .ToUniTask(cancellationToken: cancellationToken)
                         .Forget();
                     uiViewInGame.SetActiveLieMessage(true);
+                    audioManager.PlaySfx("GotoHell");
                 }
                 else
                 {
                     enemy.PlayGotoHeavenAnimation();
+                    audioManager.PlaySfx("GotoHeaven");
                 }
 
                 if (isTrue && talkingIsTrueTalk || !isTrue && !talkingIsTrueTalk)
