@@ -4,7 +4,6 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
 using LitMotion;
-using LitMotion.Extensions;
 using UnityEngine;
 
 namespace tomagif
