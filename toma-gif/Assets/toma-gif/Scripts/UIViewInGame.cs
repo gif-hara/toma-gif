@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +11,8 @@ namespace tomagif
     public class UIViewInGame
     {
         private readonly HKUIDocument document;
+
+        private readonly List<HKUIDocument> evidenceMessages = new();
 
         public UIViewInGame(HKUIDocument document)
         {
@@ -33,6 +37,27 @@ namespace tomagif
             );
 
             return result == 0;
+        }
+
+        public void SetupEvidences(List<string> evidences, string talkMessage)
+        {
+            var evidenceList = document.Q<HKUIDocument>("EvidenceList");
+            var evidenceParent = evidenceList.Q<Transform>("Messages");
+            var evidencePrefab = evidenceList.Q<HKUIDocument>("Prefab.Message");
+            foreach (var i in evidenceMessages)
+            {
+                Object.Destroy(i.gameObject);
+            }
+            evidenceMessages.Clear();
+
+            foreach (var evidence in evidences)
+            {
+                var message = Object.Instantiate(evidencePrefab, evidenceParent);
+                message.Q<TMP_Text>("Message").text = evidence;
+                evidenceMessages.Add(message);
+            }
+
+            document.Q<HKUIDocument>("TalkMessage").Q<TMP_Text>("Message").text = talkMessage;
         }
     }
 }
