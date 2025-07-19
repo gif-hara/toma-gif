@@ -870,7 +870,6 @@ MonoBehaviour:
   inGameDocument: {fileID: 1465102982}
   enemyMoveDuration: 0.2
   enemyMoveEase: 8
-  evidenceCount: 3
   difficultyLevelUpThreshold: 5
   evidenceCountMax: 3
   evidences:
