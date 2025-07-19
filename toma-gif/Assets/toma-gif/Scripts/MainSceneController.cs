@@ -30,6 +30,15 @@ namespace tomagif
         private Ease enemyMoveEase;
 
         [field: SerializeField]
+        private float enemyDefeatOffsetPosition;
+
+        [field: SerializeField]
+        private int enemyDefeatDuration;
+
+        [field: SerializeField]
+        private Ease enemyDefeatEase;
+
+        [field: SerializeField]
         private int evidenceCount;
 
         [field: SerializeField]
@@ -37,7 +46,7 @@ namespace tomagif
 
         private PlayerController playerController;
 
-        private readonly List<HKUIDocument> enemies = new();
+        private readonly List<EnemyController> enemies = new();
 
         private UIViewInGame uiViewInGame;
 
@@ -52,7 +61,9 @@ namespace tomagif
             foreach (Transform spawnPoint in enemySpawnPointParent)
             {
                 var enemyActor = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                enemies.Add(enemyActor);
+                var enemyController = new EnemyController(enemyActor);
+                enemyController.PlayIdleAnimation();
+                enemies.Add(enemyController);
             }
             uiViewInGame = new UIViewInGame(inGameDocument);
             uiViewInGame.Initialize();
@@ -68,10 +79,13 @@ namespace tomagif
             while (!cancellationToken.IsCancellationRequested)
             {
                 var isTrue = await uiViewInGame.OnClickJudgementButtonAsync(cancellationToken);
+                var enemy = enemies[0];
+                enemies.RemoveAt(0);
 
                 if (!isTrue)
                 {
                     playerController.PlayAttackAnimation();
+                    enemy.PlayDeadAnimation();
                 }
 
                 if (isTrue && talkingIsTrueTalk || !isTrue && !talkingIsTrueTalk)
@@ -84,22 +98,18 @@ namespace tomagif
                 }
 
                 playerController.PlayIdleAnimation();
-                var enemy = enemies[0];
-                enemies.RemoveAt(0);
-                Destroy(enemy.gameObject);
+                Destroy(enemy.RootGameObject);
                 for (var i = 0; i < enemies.Count; i++)
                 {
                     var toPosition = enemySpawnPointParent.GetChild(i).position;
-                    LMotion.Create(enemies[i].transform.position, toPosition, enemyMoveDuration)
-                        .WithEase(enemyMoveEase)
-                        .BindToPosition(enemies[i].transform)
-                        .AddTo(enemies[i].transform)
-                        .ToUniTask()
+                    enemies[i].MoveAsync(toPosition, enemyMoveDuration, enemyMoveEase)
                         .Forget();
                 }
                 var newSpawnPoint = enemySpawnPointParent.GetChild(enemies.Count);
                 var newEnemy = Instantiate(enemyPrefab, newSpawnPoint.position, Quaternion.identity);
-                enemies.Add(newEnemy);
+                var newEnemyController = new EnemyController(newEnemy);
+                newEnemyController.PlayIdleAnimation();
+                enemies.Add(newEnemyController);
                 SetupEvidence();
             }
         }
