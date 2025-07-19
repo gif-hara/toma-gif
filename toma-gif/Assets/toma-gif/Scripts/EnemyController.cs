@@ -38,5 +38,10 @@ namespace tomagif
         {
             animator.Play("GotoHell");
         }
+
+        public void PlayGotoHeavenAnimation()
+        {
+            animator.Play("GotoHeaven");
+        }
     }
 }
