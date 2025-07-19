@@ -419,8 +419,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 40, y: -50}
-  m_SizeDelta: {x: -80, y: 320}
+  m_AnchoredPosition: {x: 90, y: -90}
+  m_SizeDelta: {x: -180, y: 260}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &8907919581711320641
 MonoBehaviour:
@@ -440,7 +440,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: 20
+  m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
@@ -733,14 +733,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b4b4a43ea388e1d43aef83441d4c4aaa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -984,9 +984,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIElement.Button.False
       objectReference: {fileID: 0}
+    - target: {fileID: 852585202058740906, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 852585202058740906, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f45dbdd3b8faa7e4cb628ca7f02f34e5, type: 3}
     - target: {fileID: 942838514622146794, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_text
       value: "\u5730\u7344"
+      objectReference: {fileID: 0}
+    - target: {fileID: 942838514622146794, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 942838514622146794, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4623323739856454805, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_Pivot.x
@@ -1067,6 +1083,26 @@ PrefabInstance:
     - target: {fileID: 4623323739856454805, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9947028
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.10279255
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -11.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1272,9 +1308,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIElement.Button.True
       objectReference: {fileID: 0}
+    - target: {fileID: 852585202058740906, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 852585202058740906, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0395ffe5e293b4a4ab0c1b9c240ef0ae, type: 3}
     - target: {fileID: 942838514622146794, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_text
       value: "\u5929\u56FD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 942838514622146794, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_fontSize
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 942838514622146794, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4623323739856454805, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_Pivot.x
@@ -1355,6 +1407,26 @@ PrefabInstance:
     - target: {fileID: 4623323739856454805, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99755186
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.06993057
+      objectReference: {fileID: 0}
+    - target: {fileID: 5833957754963943389, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 8.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
