@@ -853,9 +853,11 @@ MonoBehaviour:
   inGameDocument: {fileID: 1465102982}
   enemyMoveDuration: 0.2
   enemyMoveEase: 8
-  evidenceCount: 1
+  evidenceCount: 3
   evidences:
   - {fileID: 11400000, guid: 4d5052eac9429e847bf3bf82a96a06cb, type: 2}
+  - {fileID: 11400000, guid: f1d40baec9e7adb44a585a02c0a11f0f, type: 2}
+  - {fileID: 11400000, guid: 4fa854ce2aaf9324c9251f2c69459d5f, type: 2}
 --- !u!1 &1651034848
 GameObject:
   m_ObjectHideFlags: 0
