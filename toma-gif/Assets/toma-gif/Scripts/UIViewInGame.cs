@@ -30,6 +30,7 @@ namespace tomagif
             document.gameObject.SetActive(true);
             EffectCorrect.gameObject.SetActive(false);
             EffectIncorrect.gameObject.SetActive(false);
+            LieMessage.gameObject.SetActive(false);
         }
 
         public async UniTask<bool> OnClickJudgementButtonAsync(CancellationToken cancellationToken)
@@ -79,8 +80,15 @@ namespace tomagif
             EffectIncorrect.gameObject.SetActive(false);
         }
 
+        public void SetActiveLieMessage(bool isActive)
+        {
+            LieMessage.gameObject.SetActive(isActive);
+        }
+
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
 
         private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");
+
+        private HKUIDocument LieMessage => document.Q<HKUIDocument>("LieMessage");
     }
 }

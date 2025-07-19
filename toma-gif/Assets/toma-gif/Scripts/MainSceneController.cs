@@ -99,6 +99,7 @@ namespace tomagif
                         .AddTo(cameraTransform)
                         .ToUniTask(cancellationToken: cancellationToken)
                         .Forget();
+                    uiViewInGame.SetActiveLieMessage(true);
                 }
                 else
                 {
@@ -120,6 +121,7 @@ namespace tomagif
                     await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 
+                uiViewInGame.SetActiveLieMessage(false);
                 playerController.PlayIdleAnimation();
                 Destroy(enemy.RootGameObject);
                 for (var i = 0; i < enemies.Count; i++)
