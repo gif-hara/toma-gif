@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace tomagif
         public void Activate()
         {
             document.gameObject.SetActive(true);
+            EffectCorrect.gameObject.SetActive(false);
+            EffectIncorrect.gameObject.SetActive(false);
         }
 
         public async UniTask<bool> OnClickJudgementButtonAsync(CancellationToken cancellationToken)
@@ -46,18 +49,38 @@ namespace tomagif
             var evidencePrefab = evidenceList.Q<HKUIDocument>("Prefab.Message");
             foreach (var i in evidenceMessages)
             {
-                Object.Destroy(i.gameObject);
+                UnityEngine.Object.Destroy(i.gameObject);
             }
             evidenceMessages.Clear();
 
             foreach (var evidence in evidences)
             {
-                var message = Object.Instantiate(evidencePrefab, evidenceParent);
+                var message = UnityEngine.Object.Instantiate(evidencePrefab, evidenceParent);
                 message.Q<TMP_Text>("Message").text = evidence;
                 evidenceMessages.Add(message);
             }
 
             document.Q<HKUIDocument>("TalkMessage").Q<TMP_Text>("Message").text = talkMessage;
         }
+
+        public async UniTask ShowEffectCorrectAsync(CancellationToken cancellationToken)
+        {
+            EffectCorrect.gameObject.SetActive(true);
+            EffectIncorrect.gameObject.SetActive(false);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: cancellationToken);
+            EffectCorrect.gameObject.SetActive(false);
+        }
+
+        public async UniTask ShowEffectIncorrectAsync(CancellationToken cancellationToken)
+        {
+            EffectIncorrect.gameObject.SetActive(true);
+            EffectCorrect.gameObject.SetActive(false);
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5f), cancellationToken: cancellationToken);
+            EffectIncorrect.gameObject.SetActive(false);
+        }
+
+        private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
+
+        private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");
     }
 }

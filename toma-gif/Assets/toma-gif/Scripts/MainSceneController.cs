@@ -66,11 +66,11 @@ namespace tomagif
                 var isTrue = await uiViewInGame.OnClickJudgementButtonAsync(cancellationToken);
                 if (isTrue && talkingIsTrueTalk || !isTrue && !talkingIsTrueTalk)
                 {
-                    Debug.Log("正解");
+                    await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
                 {
-                    Debug.Log("不正解");
+                    await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 
                 var enemy = enemies[0];
