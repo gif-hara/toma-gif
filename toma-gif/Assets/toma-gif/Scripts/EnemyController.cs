@@ -34,9 +34,9 @@ namespace tomagif
             animator.Play("Idle");
         }
 
-        public void PlayDeadAnimation()
+        public void PlayGotoHellAnimation()
         {
-            animator.Play("Dead");
+            animator.Play("GotoHell");
         }
     }
 }
