@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1613615316436670546}
   - component: {fileID: 5317071026827463444}
   m_Layer: 5
-  m_Name: Evidence
+  m_Name: TalkMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -337,7 +337,7 @@ GameObject:
   - component: {fileID: 1048618011368534425}
   - component: {fileID: 1567630092087651641}
   m_Layer: 5
-  m_Name: InformationList
+  m_Name: EvidenceList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -379,6 +379,8 @@ MonoBehaviour:
   elements:
   - document: {fileID: 6181686748497724320, guid: 4bc55243287a0a24faca22a78de40163, type: 3}
     overrideName: Prefab.Message
+  - document: {fileID: 3566786244460634431}
+    overrideName: 
 --- !u!1 &7601926569726775474
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,7 +665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
       propertyPath: elements.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
       propertyPath: elements.Array.data[0].document
@@ -673,6 +675,14 @@ PrefabInstance:
       propertyPath: elements.Array.data[1].document
       value: 
       objectReference: {fileID: 5726767071576834576}
+    - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
+      propertyPath: elements.Array.data[2].document
+      value: 
+      objectReference: {fileID: 7489727543899083271}
+    - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
+      propertyPath: elements.Array.data[3].document
+      value: 
+      objectReference: {fileID: 500600962137699984}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
