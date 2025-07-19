@@ -106,8 +106,10 @@ namespace tomagif
                 : talkingEvidence.NegativeEvidences[Random.Range(0, talkingEvidence.NegativeEvidences.Count)];
             var talkMessage = talkingEvidence.Messages[Random.Range(0, talkingEvidence.Messages.Count)];
             talkingIsTrueTalk = talkMessage.IsPositive == isPositive;
-            var evidenceMessages = new List<string>();
-            evidenceMessages.Add(evidenceMessage);
+            var evidenceMessages = new List<string>
+            {
+                evidenceMessage
+            };
             for (var i = 1; i < currentEvidences.Count; i++)
             {
                 var evidence = currentEvidences[i];
