@@ -12,10 +12,10 @@ namespace tomagif
     public class MainSceneController : MonoBehaviour
     {
         [field: SerializeField]
-        private Actor player;
+        private HKUIDocument player;
 
         [field: SerializeField]
-        private Actor enemyPrefab;
+        private HKUIDocument enemyPrefab;
 
         [field: SerializeField]
         private Transform enemySpawnPointParent;
@@ -35,7 +35,9 @@ namespace tomagif
         [field: SerializeField]
         private List<Evidence> evidences;
 
-        private readonly List<Actor> enemies = new();
+        private PlayerController playerController;
+
+        private readonly List<HKUIDocument> enemies = new();
 
         private UIViewInGame uiViewInGame;
 
@@ -55,6 +57,8 @@ namespace tomagif
             uiViewInGame = new UIViewInGame(inGameDocument);
             uiViewInGame.Initialize();
             uiViewInGame.Activate();
+            playerController = new PlayerController(player);
+            playerController.PlayIdleAnimation();
             SetupEvidence();
             BeginObserveJudgementButtonAsync(CancellationToken.None).Forget();
         }
@@ -64,6 +68,12 @@ namespace tomagif
             while (!cancellationToken.IsCancellationRequested)
             {
                 var isTrue = await uiViewInGame.OnClickJudgementButtonAsync(cancellationToken);
+
+                if (!isTrue)
+                {
+                    playerController.PlayAttackAnimation();
+                }
+
                 if (isTrue && talkingIsTrueTalk || !isTrue && !talkingIsTrueTalk)
                 {
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
@@ -73,6 +83,7 @@ namespace tomagif
                     await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 
+                playerController.PlayIdleAnimation();
                 var enemy = enemies[0];
                 enemies.RemoveAt(0);
                 Destroy(enemy.gameObject);
