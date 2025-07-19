@@ -1377,6 +1377,10 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: 9c2f2dce0786e92449eda9031e3d42e6, type: 3}
     - key: GotoHeaven
       clip: {fileID: 8300000, guid: 2ff9a9a3f03e4e3419992cde0ae83867, type: 3}
+    - key: Correct
+      clip: {fileID: 8300000, guid: 0540d5093808f0c4a9991d7dd0866553, type: 3}
+    - key: Incorrect
+      clip: {fileID: 8300000, guid: 5762e777982aac9469a5be14fb4db95a, type: 3}
 --- !u!224 &1986177217 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7578109759404580083, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
