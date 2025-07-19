@@ -29,15 +29,6 @@ namespace tomagif
         private Ease enemyMoveEase;
 
         [field: SerializeField]
-        private float enemyDefeatOffsetPosition;
-
-        [field: SerializeField]
-        private int enemyDefeatDuration;
-
-        [field: SerializeField]
-        private Ease enemyDefeatEase;
-
-        [field: SerializeField]
         private int evidenceCount;
 
         [field: SerializeField]
