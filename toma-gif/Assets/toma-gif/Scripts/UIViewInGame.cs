@@ -85,6 +85,11 @@ namespace tomagif
             LieMessage.gameObject.SetActive(isActive);
         }
 
+        public void SetScore(int score)
+        {
+            document.Q<HKUIDocument>("Score").Q<TMP_Text>("Text").text = score.ToString();
+        }
+
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
 
         private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");

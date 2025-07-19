@@ -69,8 +69,6 @@ namespace tomagif
 
         private int score;
 
-        private int combo;
-
         void Start()
         {
             foreach (Transform spawnPoint in enemySpawnPointParent)
@@ -86,7 +84,7 @@ namespace tomagif
             playerController = new PlayerController(player);
             playerController.PlayIdleAnimation();
             score = 0;
-            combo = 0;
+            uiViewInGame.SetScore(score);
             SetupEvidence();
             BeginObserveJudgementButtonAsync(CancellationToken.None).Forget();
         }
@@ -126,14 +124,13 @@ namespace tomagif
                         currentDifficultyLevel = Mathf.Min(currentDifficultyLevel + 1, evidenceCountMax - 1);
                     }
                     audioManager.PlaySfx("Correct");
-                    score += (currentDifficultyLevel + 1) * 100 + combo * 10;
-                    combo++;
+                    score++;
+                    uiViewInGame.SetScore(score);
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
                 {
                     audioManager.PlaySfx("Incorrect");
-                    combo = 0;
                     await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 
