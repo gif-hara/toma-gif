@@ -156,6 +156,7 @@ namespace tomagif
         public async UniTask ProcessTitleAsync(CancellationToken cancellationToken)
         {
             Title.gameObject.SetActive(true);
+            CountDown.gameObject.SetActive(false);
             await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
             await Title.Q<HKUIDocument>("UIElement.Button.PlayGame").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);
