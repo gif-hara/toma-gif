@@ -12,6 +12,8 @@ namespace tomagif
 {
     public class MainSceneController : MonoBehaviour
     {
+        [Header("References")]
+
         [field: SerializeField]
         private HKUIDocument player;
 
@@ -21,12 +23,16 @@ namespace tomagif
         [field: SerializeField]
         private Transform cameraTransform;
 
-
         [field: SerializeField]
         private Transform enemySpawnPointParent;
 
         [field: SerializeField]
         private HKUIDocument inGameDocument;
+
+        [field: SerializeField]
+        private AudioManager audioManager;
+
+        [Header("Gameplay Settings")]
 
         [field: SerializeField]
         private float enemyMoveDuration;
@@ -48,9 +54,6 @@ namespace tomagif
 
         [field: SerializeField]
         private Vector3 cameraShakeStrength;
-
-        [field: SerializeField]
-        private AudioManager audioManager;
 
         [field: SerializeField]
         private float gameTime;
