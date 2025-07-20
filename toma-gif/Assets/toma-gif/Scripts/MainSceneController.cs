@@ -58,6 +58,9 @@ namespace tomagif
         [field: SerializeField]
         private float gameTime;
 
+        [field: SerializeField]
+        private float penaltyGameTimeOnIncorrect;
+
         private PlayerController playerController;
 
         private readonly List<EnemyController> enemies = new();
@@ -152,6 +155,7 @@ namespace tomagif
                 {
                     audioManager.PlaySfx("Incorrect");
                     combo.Value = 0;
+                    timeLimit.Value -= penaltyGameTimeOnIncorrect;
                     await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 

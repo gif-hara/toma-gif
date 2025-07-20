@@ -1235,6 +1235,7 @@ MonoBehaviour:
   cameraShakeDuration: 0.25
   cameraShakeStrength: {x: 0.5, y: 0.5, z: 0}
   gameTime: 60
+  penaltyGameTimeOnIncorrect: 1
 --- !u!1 &1603413444
 GameObject:
   m_ObjectHideFlags: 0
