@@ -74,7 +74,7 @@ namespace tomagif
 
         private int currentDifficultyLevel = 0;
 
-        private int score;
+        private readonly ReactiveProperty<int> score = new();
 
         private readonly ReactiveProperty<float> timeLimit = new();
 
@@ -90,11 +90,10 @@ namespace tomagif
             playerController = new PlayerController(player);
             uiViewInGame = new UIViewInGame(inGameDocument);
             playerController.PlayIdleAnimation();
-            score = 0;
+            score.Value = 0;
             timeLimit.Value = gameTime;
             uiViewInGame.Initialize();
-            uiViewInGame.Activate(timeLimit, gameTime, destroyCancellationToken);
-            uiViewInGame.SetScore(score);
+            uiViewInGame.Activate(timeLimit, gameTime, score, destroyCancellationToken);
             SetupEvidence();
 
             var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
@@ -143,8 +142,7 @@ namespace tomagif
                         currentDifficultyLevel = Mathf.Min(currentDifficultyLevel + 1, evidenceCountMax - 1);
                     }
                     audioManager.PlaySfx("Correct");
-                    score++;
-                    uiViewInGame.SetScore(score);
+                    score.Value += 1;
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
