@@ -76,6 +76,8 @@ namespace tomagif
 
         private readonly ReactiveProperty<int> score = new();
 
+        private readonly ReactiveProperty<int> combo = new();
+
         private readonly ReactiveProperty<float> timeLimit = new();
 
         async UniTask Start()
@@ -142,12 +144,14 @@ namespace tomagif
                         currentDifficultyLevel = Mathf.Min(currentDifficultyLevel + 1, evidenceCountMax - 1);
                     }
                     audioManager.PlaySfx("Correct");
-                    score.Value += 1;
+                    score.Value += (currentDifficultyLevel + 1) * 100 + combo.Value * 20;
+                    combo.Value++;
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
                 {
                     audioManager.PlaySfx("Incorrect");
+                    combo.Value = 0;
                     await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 
