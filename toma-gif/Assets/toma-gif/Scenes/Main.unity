@@ -1176,9 +1176,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4d5052eac9429e847bf3bf82a96a06cb, type: 2}
   - {fileID: 11400000, guid: f1d40baec9e7adb44a585a02c0a11f0f, type: 2}
   - {fileID: 11400000, guid: 4fa854ce2aaf9324c9251f2c69459d5f, type: 2}
+  - {fileID: 11400000, guid: 423f9fb859acee342b2e0b1e5276c659, type: 2}
   cameraShakeDuration: 0.25
   cameraShakeStrength: {x: 0.5, y: 0.5, z: 0}
-  gameTime: 1
+  gameTime: 60
   penaltyGameTimeOnIncorrect: 1
   comboFormat: "{0}<size=75%>\u30B3\u30F3\u30DC\uFF01</size>"
 --- !u!1 &1603413444
