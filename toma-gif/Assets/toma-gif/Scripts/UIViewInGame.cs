@@ -164,7 +164,7 @@ namespace tomagif
             Title.gameObject.SetActive(false);
         }
 
-        public async UniTask ShowCountDownAsync(int count, string startMessage, CancellationToken cancellationToken)
+        public async UniTask ShowCountDownAsync(int count, string startMessage, AudioManager audioManager, CancellationToken cancellationToken)
         {
             CountDown.gameObject.SetActive(true);
             var animator = CountDown.Q<Animator>("Animator");
@@ -172,11 +172,13 @@ namespace tomagif
 
             for (int i = count; i >= 1; i--)
             {
+                audioManager.PlaySfx("CountDown");
                 countText.text = i.ToString();
                 animator.Play("In", 0, 0.0f);
                 await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);
             }
 
+            audioManager.PlaySfx("GameStart");
             countText.text = startMessage;
             animator.Play("In", 0, 0.0f);
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);

@@ -120,7 +120,7 @@ namespace tomagif
                 uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, gameScope.Token);
                 uiViewInGame.ClearEvidenceMessages();
                 await uiViewInGame.BeginFade(Color.black, Color.clear, 0.5f, gameScope.Token);
-                await uiViewInGame.ShowCountDownAsync(3, "Start!", gameScope.Token);
+                await uiViewInGame.ShowCountDownAsync(3, "Start!", audioManager, gameScope.Token);
                 SetupEvidence();
 
                 BeginObserveJudgementButtonAsync(gameScope.Token).Forget();
