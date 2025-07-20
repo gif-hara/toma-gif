@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
+using LitMotion;
+using LitMotion.Extensions;
 using R3;
 using TMPro;
 using UnityEngine;
@@ -127,11 +129,29 @@ namespace tomagif
             Result.gameObject.SetActive(true);
             await Result.Q<HKUIDocument>("UIElement.Button.Retry").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);
+            await BeginFade(Color.clear, Color.black, 0.5f, cancellationToken);
         }
 
         public void SetActiveLieMessage(bool isActive)
         {
             LieMessage.gameObject.SetActive(isActive);
+        }
+
+        public UniTask BeginFade(Color from, Color to, float duration, CancellationToken cancellationToken)
+        {
+            return LMotion.Create(from, to, duration)
+                .BindToColor(document.Q<HKUIDocument>("Fade").Q<Image>("Image"))
+                .ToUniTask(cancellationToken: cancellationToken);
+        }
+
+        public void ClearEvidenceMessages()
+        {
+            foreach (var message in evidenceMessages)
+            {
+                UnityEngine.Object.Destroy(message.gameObject);
+            }
+            evidenceMessages.Clear();
+            document.Q<HKUIDocument>("TalkMessage").Q<TMP_Text>("Message").text = "";
         }
 
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");

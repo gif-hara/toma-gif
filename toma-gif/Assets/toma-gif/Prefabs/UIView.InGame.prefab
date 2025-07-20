@@ -339,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u8ECA\u306E\u904B\u8EE2\u3068\u304B\u9055\u53CD\u3057\u305F\u3053\u3068\u7121\u3044\u3093\u3067\u3059\u3088\u3049\uFF01\u5929\u56FD\u306B\u884C\u304B\u305B\u3066\u304F\u3060\u3055\u3044\u3043\u3043\uFF01\uFF01"
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
   m_sharedMaterial: {fileID: -7621177700258744374, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
@@ -1183,14 +1183,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1866728111841038743}
   - component: {fileID: 5054015079904074922}
-  - component: {fileID: 3566086155173670439}
   m_Layer: 5
   m_Name: Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1866728111841038743
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1224,20 +1223,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elements:
-  - document: {fileID: 3866235992531742585}
+  - document: {fileID: 635534841352753454}
     overrideName: 
---- !u!225 &3566086155173670439
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3866235992531742585}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &3935897657620433151
 GameObject:
   m_ObjectHideFlags: 0
@@ -3334,7 +3321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
       propertyPath: elements.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
       propertyPath: elements.Array.data[0].document
@@ -3380,6 +3367,10 @@ PrefabInstance:
       propertyPath: elements.Array.data[10].document
       value: 
       objectReference: {fileID: 4327387863211677414}
+    - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
+      propertyPath: elements.Array.data[11].document
+      value: 
+      objectReference: {fileID: 3866235992531742585}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

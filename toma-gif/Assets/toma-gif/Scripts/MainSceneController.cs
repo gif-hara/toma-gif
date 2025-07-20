@@ -91,8 +91,9 @@ namespace tomagif
         {
             playerController = new PlayerController(player);
             uiViewInGame = new UIViewInGame(inGameDocument);
+            var sceneScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken, Application.exitCancellationToken);
 
-            while (!destroyCancellationToken.IsCancellationRequested)
+            while (!sceneScope.IsCancellationRequested)
             {
                 foreach (var i in enemies)
                 {
@@ -112,6 +113,8 @@ namespace tomagif
                 timeLimit.Value = gameTime;
                 uiViewInGame.Initialize();
                 uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, destroyCancellationToken);
+                uiViewInGame.ClearEvidenceMessages();
+                await uiViewInGame.BeginFade(Color.black, Color.clear, 0.5f, destroyCancellationToken);
                 SetupEvidence();
 
                 var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
