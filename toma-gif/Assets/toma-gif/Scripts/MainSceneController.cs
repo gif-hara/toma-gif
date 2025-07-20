@@ -93,6 +93,8 @@ namespace tomagif
             uiViewInGame = new UIViewInGame(inGameDocument);
             var sceneScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken, Application.exitCancellationToken);
 
+            await uiViewInGame.ProcessTitleAsync(sceneScope.Token);
+
             while (!sceneScope.IsCancellationRequested)
             {
                 foreach (var i in enemies)

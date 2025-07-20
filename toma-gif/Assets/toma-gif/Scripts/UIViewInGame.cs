@@ -139,8 +139,10 @@ namespace tomagif
 
         public UniTask BeginFade(Color from, Color to, float duration, CancellationToken cancellationToken)
         {
+            var fade = document.Q<HKUIDocument>("Fade");
+            fade.gameObject.SetActive(true);
             return LMotion.Create(from, to, duration)
-                .BindToColor(document.Q<HKUIDocument>("Fade").Q<Image>("Image"))
+                .BindToColor(fade.Q<Image>("Image"))
                 .ToUniTask(cancellationToken: cancellationToken);
         }
 
@@ -154,6 +156,16 @@ namespace tomagif
             document.Q<HKUIDocument>("TalkMessage").Q<TMP_Text>("Message").text = "";
         }
 
+        public async UniTask ProcessTitleAsync(CancellationToken cancellationToken)
+        {
+            Title.gameObject.SetActive(true);
+            await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
+            await Title.Q<HKUIDocument>("UIElement.Button.PlayGame").Q<Button>("Button")
+                .OnClickAsync(cancellationToken);
+            await BeginFade(Color.clear, Color.black, 0.5f, cancellationToken);
+            Title.gameObject.SetActive(false);
+        }
+
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
 
         private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");
@@ -163,5 +175,7 @@ namespace tomagif
         private HKUIDocument LieMessage => document.Q<HKUIDocument>("LieMessage");
 
         private HKUIDocument Result => document.Q<HKUIDocument>("Result");
+
+        private HKUIDocument Title => document.Q<HKUIDocument>("Title");
     }
 }
