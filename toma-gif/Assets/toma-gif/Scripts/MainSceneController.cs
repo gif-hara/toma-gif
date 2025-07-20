@@ -113,6 +113,7 @@ namespace tomagif
             }
             gameScope.Cancel();
             gameScope.Dispose();
+            await uiViewInGame.ShowEffectGameOverAsync(destroyCancellationToken);
         }
 
         private async UniTask BeginObserveJudgementButtonAsync(CancellationToken cancellationToken)
