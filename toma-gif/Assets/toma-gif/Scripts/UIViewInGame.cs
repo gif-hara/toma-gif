@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,8 +26,16 @@ namespace tomagif
             document.gameObject.SetActive(false);
         }
 
-        public void Activate()
+        public void Activate(Observable<float> timeLimit, float gameTime, CancellationToken cancellationToken)
         {
+            var stream = timeLimit.Subscribe((this, gameTime), static (x, t) =>
+            {
+                var (@this, gameTime) = t;
+                @this.document.Q<HKUIDocument>("TimeLimit").Q<Slider>("Slider").value = x / gameTime;
+            });
+            stream.RegisterTo(document.destroyCancellationToken);
+            stream.RegisterTo(cancellationToken);
+
             document.gameObject.SetActive(true);
             EffectCorrect.gameObject.SetActive(false);
             EffectIncorrect.gameObject.SetActive(false);
