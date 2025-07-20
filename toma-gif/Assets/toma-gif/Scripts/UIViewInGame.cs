@@ -157,6 +157,8 @@ namespace tomagif
         {
             Title.gameObject.SetActive(true);
             CountDown.gameObject.SetActive(false);
+            Tutorial.gameObject.SetActive(false);
+            LieMessage.gameObject.SetActive(false);
             await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
             await Title.Q<HKUIDocument>("UIElement.Button.PlayGame").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);
@@ -185,6 +187,20 @@ namespace tomagif
             CountDown.gameObject.SetActive(false);
         }
 
+        public async UniTask ProcessTutorialAsync(CancellationToken cancellationToken)
+        {
+            await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
+            var animator = Tutorial.Q<Animator>("Animator");
+            Tutorial.gameObject.SetActive(true);
+            animator.Play("In", 0, 0.0f);
+            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);
+            await Tutorial.Q<HKUIDocument>("UIElement.Button.AnyClick").Q<Button>("Button")
+                .OnClickAsync(cancellationToken);
+            animator.Play("Out", 0, 0.0f);
+            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);
+            Tutorial.gameObject.SetActive(false);
+        }
+
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
 
         private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");
@@ -198,5 +214,7 @@ namespace tomagif
         private HKUIDocument Title => document.Q<HKUIDocument>("Title");
 
         private HKUIDocument CountDown => document.Q<HKUIDocument>("CountDown");
+
+        private HKUIDocument Tutorial => document.Q<HKUIDocument>("Tutorial");
     }
 }

@@ -87,6 +87,8 @@ namespace tomagif
 
         private readonly ReactiveProperty<float> timeLimit = new();
 
+        private bool isFirstPlay = true;
+
         async UniTask Start()
         {
             playerController = new PlayerController(player);
@@ -116,10 +118,20 @@ namespace tomagif
                 experience = 0;
                 currentDifficultyLevel = 0;
                 timeLimit.Value = gameTime;
+
                 var gameScope = CancellationTokenSource.CreateLinkedTokenSource(sceneScope.Token, destroyCancellationToken);
                 uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, gameScope.Token);
                 uiViewInGame.ClearEvidenceMessages();
-                await uiViewInGame.BeginFade(Color.black, Color.clear, 0.5f, gameScope.Token);
+                if (isFirstPlay)
+                {
+                    isFirstPlay = false;
+                    await uiViewInGame.ProcessTutorialAsync(sceneScope.Token);
+                }
+                else
+                {
+                    await uiViewInGame.BeginFade(Color.black, Color.clear, 0.5f, gameScope.Token);
+                }
+
                 await uiViewInGame.ShowCountDownAsync(3, "Start!", audioManager, gameScope.Token);
                 SetupEvidence();
 
