@@ -58,6 +58,9 @@ namespace tomagif
         [field: SerializeField]
         private float gameTime;
 
+        [field: SerializeField]
+        private float penaltyGameTimeOnIncorrect;
+
         private PlayerController playerController;
 
         private readonly List<EnemyController> enemies = new();
@@ -75,6 +78,8 @@ namespace tomagif
         private int currentDifficultyLevel = 0;
 
         private readonly ReactiveProperty<int> score = new();
+
+        private readonly ReactiveProperty<int> combo = new();
 
         private readonly ReactiveProperty<float> timeLimit = new();
 
@@ -142,12 +147,15 @@ namespace tomagif
                         currentDifficultyLevel = Mathf.Min(currentDifficultyLevel + 1, evidenceCountMax - 1);
                     }
                     audioManager.PlaySfx("Correct");
-                    score.Value += 1;
+                    score.Value += (currentDifficultyLevel + 1) * 100 + combo.Value * 20;
+                    combo.Value++;
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
                 {
                     audioManager.PlaySfx("Incorrect");
+                    combo.Value = 0;
+                    timeLimit.Value -= penaltyGameTimeOnIncorrect;
                     await uiViewInGame.ShowEffectIncorrectAsync(cancellationToken);
                 }
 

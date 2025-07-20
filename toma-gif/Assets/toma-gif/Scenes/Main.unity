@@ -1234,7 +1234,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4fa854ce2aaf9324c9251f2c69459d5f, type: 2}
   cameraShakeDuration: 0.25
   cameraShakeStrength: {x: 0.5, y: 0.5, z: 0}
-  gameTime: 30
+  gameTime: 60
+  penaltyGameTimeOnIncorrect: 1
 --- !u!1 &1603413444
 GameObject:
   m_ObjectHideFlags: 0
