@@ -1202,7 +1202,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4fa854ce2aaf9324c9251f2c69459d5f, type: 2}
   cameraShakeDuration: 0.25
   cameraShakeStrength: {x: 0.5, y: 0.5, z: 0}
-  gameTime: 60
+  gameTime: 1
   penaltyGameTimeOnIncorrect: 1
   comboFormat: "{0}<size=75%>\u30B3\u30F3\u30DC\uFF01</size>"
 --- !u!1 &1603413444
@@ -1362,6 +1362,10 @@ MonoBehaviour:
       clip: {fileID: 8300000, guid: 5762e777982aac9469a5be14fb4db95a, type: 3}
     - key: GameOver
       clip: {fileID: 8300000, guid: efc0cc594f0c33f44b01b843b3d5ee4b, type: 3}
+    - key: GameStart
+      clip: {fileID: 8300000, guid: 914effa738d1ded449e3611cb8c1b511, type: 3}
+    - key: CountDown
+      clip: {fileID: 8300000, guid: d722884d42ebbba41b97897a915e523c, type: 3}
 --- !u!224 &1986177217 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7578109759404580083, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
