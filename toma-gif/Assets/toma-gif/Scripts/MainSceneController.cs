@@ -119,7 +119,7 @@ namespace tomagif
             if (Application.isPlaying)
             {
                 audioManager.PlaySfx("GameOver");
-                await uiViewInGame.ShowEffectGameOverAsync(destroyCancellationToken);
+                await uiViewInGame.ProcessGameOverAsync(score.Value, destroyCancellationToken);
             }
         }
 

@@ -63,6 +63,7 @@ namespace tomagif
             EffectIncorrect.gameObject.SetActive(false);
             EffectGameOver.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
+            Result.gameObject.SetActive(false);
         }
 
         public async UniTask<bool> OnClickJudgementButtonAsync(CancellationToken cancellationToken)
@@ -112,11 +113,15 @@ namespace tomagif
             EffectIncorrect.gameObject.SetActive(false);
         }
 
-        public async UniTask ShowEffectGameOverAsync(CancellationToken cancellationToken)
+        public async UniTask ProcessGameOverAsync(int score, CancellationToken cancellationToken)
         {
+            document.Q<HKUIDocument>("EvidenceList").gameObject.SetActive(false);
+            document.Q<HKUIDocument>("UIElement.Button.True").gameObject.SetActive(false);
+            document.Q<HKUIDocument>("UIElement.Button.False").gameObject.SetActive(false);
             EffectGameOver.gameObject.SetActive(true);
             await UniTask.Delay(TimeSpan.FromSeconds(3.0f), cancellationToken: cancellationToken);
-            EffectGameOver.gameObject.SetActive(false);
+            Result.Q<TMP_Text>("Score").text = score.ToString();
+            Result.gameObject.SetActive(true);
         }
 
         public void SetActiveLieMessage(bool isActive)
@@ -131,5 +136,7 @@ namespace tomagif
         private HKUIDocument EffectGameOver => document.Q<HKUIDocument>("Effect.GameOver");
 
         private HKUIDocument LieMessage => document.Q<HKUIDocument>("LieMessage");
+
+        private HKUIDocument Result => document.Q<HKUIDocument>("Result");
     }
 }
