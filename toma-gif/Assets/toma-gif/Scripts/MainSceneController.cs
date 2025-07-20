@@ -89,37 +89,47 @@ namespace tomagif
 
         async UniTask Start()
         {
-            foreach (Transform spawnPoint in enemySpawnPointParent)
-            {
-                var enemyActor = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-                var enemyController = new EnemyController(enemyActor);
-                enemyController.PlayIdleAnimation();
-                enemies.Add(enemyController);
-            }
             playerController = new PlayerController(player);
             uiViewInGame = new UIViewInGame(inGameDocument);
-            playerController.PlayIdleAnimation();
-            score.Value = 0;
-            timeLimit.Value = gameTime;
-            uiViewInGame.Initialize();
-            uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, destroyCancellationToken);
-            SetupEvidence();
 
-            var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
-            BeginObserveJudgementButtonAsync(gameScope.Token).Forget();
-            while (timeLimit.Value > 0 && !gameScope.IsCancellationRequested)
+            while (!destroyCancellationToken.IsCancellationRequested)
             {
-                timeLimit.Value -= Time.deltaTime;
-                await UniTask.Yield(PlayerLoopTiming.Update);
-            }
-            gameScope.Cancel();
-            gameScope.Dispose();
+                foreach (var i in enemies)
+                {
+                    Destroy(i.RootGameObject);
+                }
+                enemies.Clear();
+                foreach (Transform spawnPoint in enemySpawnPointParent)
+                {
+                    var enemyActor = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+                    var enemyController = new EnemyController(enemyActor);
+                    enemyController.PlayIdleAnimation();
+                    enemies.Add(enemyController);
+                }
 
-            // Editorのゲーム再生終了でも呼ばれる可能性があるため、プレイ中かどうかを確認
-            if (Application.isPlaying)
-            {
-                audioManager.PlaySfx("GameOver");
-                await uiViewInGame.ProcessGameOverAsync(score.Value, destroyCancellationToken);
+                playerController.PlayIdleAnimation();
+                score.Value = 0;
+                timeLimit.Value = gameTime;
+                uiViewInGame.Initialize();
+                uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, destroyCancellationToken);
+                SetupEvidence();
+
+                var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
+                BeginObserveJudgementButtonAsync(gameScope.Token).Forget();
+                while (timeLimit.Value > 0 && !gameScope.IsCancellationRequested)
+                {
+                    timeLimit.Value -= Time.deltaTime;
+                    await UniTask.Yield(PlayerLoopTiming.Update);
+                }
+                gameScope.Cancel();
+                gameScope.Dispose();
+
+                // Editorのゲーム再生終了でも呼ばれる可能性があるため、プレイ中かどうかを確認
+                if (Application.isPlaying)
+                {
+                    audioManager.PlaySfx("GameOver");
+                    await uiViewInGame.ProcessGameOverAsync(score.Value, destroyCancellationToken);
+                }
             }
         }
 

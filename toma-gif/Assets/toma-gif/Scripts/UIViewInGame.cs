@@ -64,6 +64,9 @@ namespace tomagif
             EffectGameOver.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
             Result.gameObject.SetActive(false);
+            document.Q<HKUIDocument>("EvidenceList").gameObject.SetActive(true);
+            document.Q<HKUIDocument>("UIElement.Button.True").gameObject.SetActive(true);
+            document.Q<HKUIDocument>("UIElement.Button.False").gameObject.SetActive(true);
         }
 
         public async UniTask<bool> OnClickJudgementButtonAsync(CancellationToken cancellationToken)
@@ -122,6 +125,8 @@ namespace tomagif
             await UniTask.Delay(TimeSpan.FromSeconds(3.0f), cancellationToken: cancellationToken);
             Result.Q<TMP_Text>("Score").text = score.ToString();
             Result.gameObject.SetActive(true);
+            await Result.Q<HKUIDocument>("UIElement.Button.Retry").Q<Button>("Button")
+                .OnClickAsync(cancellationToken);
         }
 
         public void SetActiveLieMessage(bool isActive)
