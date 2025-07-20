@@ -26,7 +26,14 @@ namespace tomagif
             document.gameObject.SetActive(false);
         }
 
-        public void Activate(Observable<float> timeLimit, float gameTime, Observable<int> score, CancellationToken cancellationToken)
+        public void Activate(
+            Observable<float> timeLimit,
+            float gameTime,
+            Observable<int> score,
+            Observable<int> combo,
+            string comboFormat,
+            CancellationToken cancellationToken
+            )
         {
             var timeLimitStream = timeLimit.Subscribe((this, gameTime), static (x, t) =>
             {
@@ -43,9 +50,18 @@ namespace tomagif
             scoreStream.RegisterTo(document.destroyCancellationToken);
             scoreStream.RegisterTo(cancellationToken);
 
+            var comboStream = combo.Subscribe((this, comboFormat), static (x, t) =>
+            {
+                var (@this, comboFormat) = t;
+                var comboText = @this.document.Q<HKUIDocument>("Score").Q<TMP_Text>("Combo");
+                comboText.text = string.Format(comboFormat, x);
+                comboText.gameObject.SetActive(x > 1);
+            });
+
             document.gameObject.SetActive(true);
             EffectCorrect.gameObject.SetActive(false);
             EffectIncorrect.gameObject.SetActive(false);
+            EffectGameOver.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
         }
 
@@ -96,6 +112,13 @@ namespace tomagif
             EffectIncorrect.gameObject.SetActive(false);
         }
 
+        public async UniTask ShowEffectGameOverAsync(CancellationToken cancellationToken)
+        {
+            EffectGameOver.gameObject.SetActive(true);
+            await UniTask.Delay(TimeSpan.FromSeconds(3.0f), cancellationToken: cancellationToken);
+            EffectGameOver.gameObject.SetActive(false);
+        }
+
         public void SetActiveLieMessage(bool isActive)
         {
             LieMessage.gameObject.SetActive(isActive);
@@ -104,6 +127,8 @@ namespace tomagif
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
 
         private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");
+
+        private HKUIDocument EffectGameOver => document.Q<HKUIDocument>("Effect.GameOver");
 
         private HKUIDocument LieMessage => document.Q<HKUIDocument>("LieMessage");
     }
