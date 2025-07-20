@@ -113,6 +113,7 @@ namespace tomagif
             }
             gameScope.Cancel();
             gameScope.Dispose();
+            audioManager.PlaySfx("GameOver");
             await uiViewInGame.ShowEffectGameOverAsync(destroyCancellationToken);
         }
 
