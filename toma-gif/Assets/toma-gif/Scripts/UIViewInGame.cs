@@ -61,6 +61,7 @@ namespace tomagif
             document.gameObject.SetActive(true);
             EffectCorrect.gameObject.SetActive(false);
             EffectIncorrect.gameObject.SetActive(false);
+            EffectGameOver.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
         }
 
@@ -111,6 +112,13 @@ namespace tomagif
             EffectIncorrect.gameObject.SetActive(false);
         }
 
+        public async UniTask ShowEffectGameOverAsync(CancellationToken cancellationToken)
+        {
+            EffectGameOver.gameObject.SetActive(true);
+            await UniTask.Delay(TimeSpan.FromSeconds(3.0f), cancellationToken: cancellationToken);
+            EffectGameOver.gameObject.SetActive(false);
+        }
+
         public void SetActiveLieMessage(bool isActive)
         {
             LieMessage.gameObject.SetActive(isActive);
@@ -119,6 +127,8 @@ namespace tomagif
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
 
         private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");
+
+        private HKUIDocument EffectGameOver => document.Q<HKUIDocument>("Effect.GameOver");
 
         private HKUIDocument LieMessage => document.Q<HKUIDocument>("LieMessage");
     }
