@@ -26,7 +26,14 @@ namespace tomagif
             document.gameObject.SetActive(false);
         }
 
-        public void Activate(Observable<float> timeLimit, float gameTime, Observable<int> score, CancellationToken cancellationToken)
+        public void Activate(
+            Observable<float> timeLimit,
+            float gameTime,
+            Observable<int> score,
+            Observable<int> combo,
+            string comboFormat,
+            CancellationToken cancellationToken
+            )
         {
             var timeLimitStream = timeLimit.Subscribe((this, gameTime), static (x, t) =>
             {
@@ -42,6 +49,14 @@ namespace tomagif
             });
             scoreStream.RegisterTo(document.destroyCancellationToken);
             scoreStream.RegisterTo(cancellationToken);
+
+            var comboStream = combo.Subscribe((this, comboFormat), static (x, t) =>
+            {
+                var (@this, comboFormat) = t;
+                var comboText = @this.document.Q<HKUIDocument>("Score").Q<TMP_Text>("Combo");
+                comboText.text = string.Format(comboFormat, x);
+                comboText.gameObject.SetActive(x > 1);
+            });
 
             document.gameObject.SetActive(true);
             EffectCorrect.gameObject.SetActive(false);

@@ -61,6 +61,9 @@ namespace tomagif
         [field: SerializeField]
         private float penaltyGameTimeOnIncorrect;
 
+        [field: SerializeField]
+        private string comboFormat;
+
         private PlayerController playerController;
 
         private readonly List<EnemyController> enemies = new();
@@ -98,7 +101,7 @@ namespace tomagif
             score.Value = 0;
             timeLimit.Value = gameTime;
             uiViewInGame.Initialize();
-            uiViewInGame.Activate(timeLimit, gameTime, score, destroyCancellationToken);
+            uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, destroyCancellationToken);
             SetupEvidence();
 
             var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
