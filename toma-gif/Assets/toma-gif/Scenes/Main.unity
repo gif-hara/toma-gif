@@ -1363,7 +1363,7 @@ MonoBehaviour:
     - key: GameOver
       clip: {fileID: 8300000, guid: efc0cc594f0c33f44b01b843b3d5ee4b, type: 3}
     - key: GameStart
-      clip: {fileID: 8300000, guid: 914effa738d1ded449e3611cb8c1b511, type: 3}
+      clip: {fileID: 8300000, guid: 2858f5f37f442f747959c3f419143b3b, type: 3}
     - key: CountDown
       clip: {fileID: 8300000, guid: d722884d42ebbba41b97897a915e523c, type: 3}
 --- !u!224 &1986177217 stripped
