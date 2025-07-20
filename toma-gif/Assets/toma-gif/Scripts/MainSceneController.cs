@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using HK;
 using LitMotion;
 using LitMotion.Extensions;
+using R3;
 using UnityEngine;
 
 namespace tomagif
@@ -51,6 +52,9 @@ namespace tomagif
         [field: SerializeField]
         private AudioManager audioManager;
 
+        [field: SerializeField]
+        private float gameTime;
+
         private PlayerController playerController;
 
         private readonly List<EnemyController> enemies = new();
@@ -69,7 +73,9 @@ namespace tomagif
 
         private int score;
 
-        void Start()
+        private readonly ReactiveProperty<float> timeLimit = new();
+
+        async UniTask Start()
         {
             foreach (Transform spawnPoint in enemySpawnPointParent)
             {
@@ -78,15 +84,25 @@ namespace tomagif
                 enemyController.PlayIdleAnimation();
                 enemies.Add(enemyController);
             }
-            uiViewInGame = new UIViewInGame(inGameDocument);
-            uiViewInGame.Initialize();
-            uiViewInGame.Activate();
             playerController = new PlayerController(player);
+            uiViewInGame = new UIViewInGame(inGameDocument);
             playerController.PlayIdleAnimation();
             score = 0;
+            timeLimit.Value = gameTime;
+            uiViewInGame.Initialize();
+            uiViewInGame.Activate(timeLimit, gameTime, destroyCancellationToken);
             uiViewInGame.SetScore(score);
             SetupEvidence();
-            BeginObserveJudgementButtonAsync(CancellationToken.None).Forget();
+
+            var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
+            BeginObserveJudgementButtonAsync(gameScope.Token).Forget();
+            while (timeLimit.Value > 0 && !gameScope.IsCancellationRequested)
+            {
+                timeLimit.Value -= Time.deltaTime;
+                await UniTask.Yield(PlayerLoopTiming.Update);
+            }
+            gameScope.Cancel();
+            gameScope.Dispose();
         }
 
         private async UniTask BeginObserveJudgementButtonAsync(CancellationToken cancellationToken)
