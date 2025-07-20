@@ -110,14 +110,17 @@ namespace tomagif
 
                 playerController.PlayIdleAnimation();
                 score.Value = 0;
+                combo.Value = 0;
+                experience = 0;
+                currentDifficultyLevel = 0;
                 timeLimit.Value = gameTime;
                 uiViewInGame.Initialize();
-                uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, destroyCancellationToken);
+                var gameScope = CancellationTokenSource.CreateLinkedTokenSource(sceneScope.Token, destroyCancellationToken);
+                uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, gameScope.Token);
                 uiViewInGame.ClearEvidenceMessages();
-                await uiViewInGame.BeginFade(Color.black, Color.clear, 0.5f, destroyCancellationToken);
+                await uiViewInGame.BeginFade(Color.black, Color.clear, 0.5f, sceneScope.Token);
                 SetupEvidence();
 
-                var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
                 BeginObserveJudgementButtonAsync(gameScope.Token).Forget();
                 while (timeLimit.Value > 0 && !gameScope.IsCancellationRequested)
                 {
@@ -131,7 +134,7 @@ namespace tomagif
                 if (Application.isPlaying)
                 {
                     audioManager.PlaySfx("GameOver");
-                    await uiViewInGame.ProcessGameOverAsync(score.Value, destroyCancellationToken);
+                    await uiViewInGame.ProcessGameOverAsync(score.Value, sceneScope.Token);
                 }
             }
         }
