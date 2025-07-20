@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -113,8 +114,13 @@ namespace tomagif
             }
             gameScope.Cancel();
             gameScope.Dispose();
-            audioManager.PlaySfx("GameOver");
-            await uiViewInGame.ShowEffectGameOverAsync(destroyCancellationToken);
+
+            // Editorのゲーム再生終了でも呼ばれる可能性があるため、プレイ中かどうかを確認
+            if (Application.isPlaying)
+            {
+                audioManager.PlaySfx("GameOver");
+                await uiViewInGame.ShowEffectGameOverAsync(destroyCancellationToken);
+            }
         }
 
         private async UniTask BeginObserveJudgementButtonAsync(CancellationToken cancellationToken)
@@ -185,15 +191,15 @@ namespace tomagif
         private void SetupEvidence()
         {
             currentEvidences = evidences
-                .OrderBy(_ => Random.value)
+                .OrderBy(_ => UnityEngine.Random.value)
                 .Take(currentDifficultyLevel + 1)
                 .ToList();
             talkingEvidence = currentEvidences[0];
-            var isPositive = Random.value > 0.5f;
+            var isPositive = UnityEngine.Random.value > 0.5f;
             var evidenceMessage = isPositive
-                ? talkingEvidence.PositiveEvidences[Random.Range(0, talkingEvidence.PositiveEvidences.Count)]
-                : talkingEvidence.NegativeEvidences[Random.Range(0, talkingEvidence.NegativeEvidences.Count)];
-            var talkMessage = talkingEvidence.Messages[Random.Range(0, talkingEvidence.Messages.Count)];
+                ? talkingEvidence.PositiveEvidences[UnityEngine.Random.Range(0, talkingEvidence.PositiveEvidences.Count)]
+                : talkingEvidence.NegativeEvidences[UnityEngine.Random.Range(0, talkingEvidence.NegativeEvidences.Count)];
+            var talkMessage = talkingEvidence.Messages[UnityEngine.Random.Range(0, talkingEvidence.Messages.Count)];
             talkingIsTrueTalk = talkMessage.IsPositive == isPositive;
             var evidenceMessages = new List<string>
             {
@@ -203,11 +209,11 @@ namespace tomagif
             {
                 var evidence = currentEvidences[i];
                 var message = isPositive
-                    ? evidence.PositiveEvidences[Random.Range(0, evidence.PositiveEvidences.Count)]
-                    : evidence.NegativeEvidences[Random.Range(0, evidence.NegativeEvidences.Count)];
+                    ? evidence.PositiveEvidences[UnityEngine.Random.Range(0, evidence.PositiveEvidences.Count)]
+                    : evidence.NegativeEvidences[UnityEngine.Random.Range(0, evidence.NegativeEvidences.Count)];
                 evidenceMessages.Add(message);
             }
-            uiViewInGame.SetupEvidences(evidenceMessages.OrderBy(x => Random.value).ToList(), talkMessage.Message);
+            uiViewInGame.SetupEvidences(evidenceMessages.OrderBy(x => UnityEngine.Random.value).ToList(), talkMessage.Message);
         }
     }
 }
