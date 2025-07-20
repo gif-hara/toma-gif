@@ -23,11 +23,6 @@ namespace tomagif
             this.document = document;
         }
 
-        public void Initialize()
-        {
-            document.gameObject.SetActive(false);
-        }
-
         public void Activate(
             Observable<float> timeLimit,
             float gameTime,
@@ -66,6 +61,8 @@ namespace tomagif
             EffectGameOver.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
             Result.gameObject.SetActive(false);
+            Title.gameObject.SetActive(false);
+            CountDown.gameObject.SetActive(false);
             document.Q<HKUIDocument>("EvidenceList").gameObject.SetActive(true);
             document.Q<HKUIDocument>("UIElement.Button.True").gameObject.SetActive(true);
             document.Q<HKUIDocument>("UIElement.Button.False").gameObject.SetActive(true);
@@ -166,6 +163,25 @@ namespace tomagif
             Title.gameObject.SetActive(false);
         }
 
+        public async UniTask ShowCountDownAsync(int count, string startMessage, CancellationToken cancellationToken)
+        {
+            CountDown.gameObject.SetActive(true);
+            var animator = CountDown.Q<Animator>("Animator");
+            var countText = CountDown.Q<TMP_Text>("Text");
+
+            for (int i = count; i >= 1; i--)
+            {
+                countText.text = i.ToString();
+                animator.Play("In", 0, 0.0f);
+                await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);
+            }
+
+            countText.text = startMessage;
+            animator.Play("In", 0, 0.0f);
+            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);
+            CountDown.gameObject.SetActive(false);
+        }
+
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");
 
         private HKUIDocument EffectIncorrect => document.Q<HKUIDocument>("Effect.Incorrect");
@@ -177,5 +193,7 @@ namespace tomagif
         private HKUIDocument Result => document.Q<HKUIDocument>("Result");
 
         private HKUIDocument Title => document.Q<HKUIDocument>("Title");
+
+        private HKUIDocument CountDown => document.Q<HKUIDocument>("CountDown");
     }
 }

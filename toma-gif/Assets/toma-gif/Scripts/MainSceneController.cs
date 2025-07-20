@@ -92,6 +92,7 @@ namespace tomagif
             playerController = new PlayerController(player);
             uiViewInGame = new UIViewInGame(inGameDocument);
             var sceneScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken, Application.exitCancellationToken);
+            uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, sceneScope.Token);
 
             await uiViewInGame.ProcessTitleAsync(sceneScope.Token);
 
@@ -116,11 +117,10 @@ namespace tomagif
                 experience = 0;
                 currentDifficultyLevel = 0;
                 timeLimit.Value = gameTime;
-                uiViewInGame.Initialize();
                 var gameScope = CancellationTokenSource.CreateLinkedTokenSource(sceneScope.Token, destroyCancellationToken);
-                uiViewInGame.Activate(timeLimit, gameTime, score, combo, comboFormat, gameScope.Token);
                 uiViewInGame.ClearEvidenceMessages();
                 await uiViewInGame.BeginFade(Color.black, Color.clear, 0.5f, sceneScope.Token);
+                await uiViewInGame.ShowCountDownAsync(3, "Start!", gameScope.Token);
                 SetupEvidence();
 
                 BeginObserveJudgementButtonAsync(gameScope.Token).Forget();

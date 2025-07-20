@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
-  m_sharedMaterial: {fileID: -7621177700258744374, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: cfefeb41f2776c4468e10d05ed21a7b9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2950,6 +2950,8 @@ MonoBehaviour:
   elements:
   - document: {fileID: 5713767441704583445}
     overrideName: 
+  - document: {fileID: 7610298409029391968}
+    overrideName: Animator
 --- !u!95 &6391654720363395603
 Animator:
   serializedVersion: 7
@@ -3957,7 +3959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
       propertyPath: elements.Array.size
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
       propertyPath: elements.Array.data[0].document
@@ -4011,6 +4013,10 @@ PrefabInstance:
       propertyPath: elements.Array.data[12].document
       value: 
       objectReference: {fileID: 4927723803666720263}
+    - target: {fileID: 8928707887021208106, guid: 08e7419e969f3314993e137867f4369a, type: 3}
+      propertyPath: elements.Array.data[13].document
+      value: 
+      objectReference: {fileID: 7610298409029391968}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
