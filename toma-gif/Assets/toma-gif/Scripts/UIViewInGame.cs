@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using HK;
+using R3;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,8 +26,23 @@ namespace tomagif
             document.gameObject.SetActive(false);
         }
 
-        public void Activate()
+        public void Activate(Observable<float> timeLimit, float gameTime, Observable<int> score, CancellationToken cancellationToken)
         {
+            var timeLimitStream = timeLimit.Subscribe((this, gameTime), static (x, t) =>
+            {
+                var (@this, gameTime) = t;
+                @this.document.Q<HKUIDocument>("TimeLimit").Q<Slider>("Slider").value = x / gameTime;
+            });
+            timeLimitStream.RegisterTo(document.destroyCancellationToken);
+            timeLimitStream.RegisterTo(cancellationToken);
+
+            var scoreStream = score.Subscribe(this, static (x, @this) =>
+            {
+                @this.document.Q<HKUIDocument>("Score").Q<TMP_Text>("Text").text = x.ToString();
+            });
+            scoreStream.RegisterTo(document.destroyCancellationToken);
+            scoreStream.RegisterTo(cancellationToken);
+
             document.gameObject.SetActive(true);
             EffectCorrect.gameObject.SetActive(false);
             EffectIncorrect.gameObject.SetActive(false);
@@ -83,11 +99,6 @@ namespace tomagif
         public void SetActiveLieMessage(bool isActive)
         {
             LieMessage.gameObject.SetActive(isActive);
-        }
-
-        public void SetScore(int score)
-        {
-            document.Q<HKUIDocument>("Score").Q<TMP_Text>("Text").text = score.ToString();
         }
 
         private HKUIDocument EffectCorrect => document.Q<HKUIDocument>("Effect.Correct");

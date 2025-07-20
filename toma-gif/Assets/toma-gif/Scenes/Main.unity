@@ -1010,6 +1010,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1170941163}
     m_Modifications:
+    - target: {fileID: 1009745680968812688, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873773817631156475, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4287220990654245562, guid: 5c38906d6880190429a880665dd04a6e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1215,6 +1223,7 @@ MonoBehaviour:
   cameraTransform: {fileID: 1603413445}
   enemySpawnPointParent: {fileID: 1535397700}
   inGameDocument: {fileID: 1465102982}
+  audioManager: {fileID: 1696220361}
   enemyMoveDuration: 0.2
   enemyMoveEase: 8
   difficultyLevelUpThreshold: 5
@@ -1225,7 +1234,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4fa854ce2aaf9324c9251f2c69459d5f, type: 2}
   cameraShakeDuration: 0.25
   cameraShakeStrength: {x: 0.5, y: 0.5, z: 0}
-  audioManager: {fileID: 1696220361}
+  gameTime: 30
 --- !u!1 &1603413444
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,12 +5,15 @@ using Cysharp.Threading.Tasks;
 using HK;
 using LitMotion;
 using LitMotion.Extensions;
+using R3;
 using UnityEngine;
 
 namespace tomagif
 {
     public class MainSceneController : MonoBehaviour
     {
+        [Header("References")]
+
         [field: SerializeField]
         private HKUIDocument player;
 
@@ -20,12 +23,16 @@ namespace tomagif
         [field: SerializeField]
         private Transform cameraTransform;
 
-
         [field: SerializeField]
         private Transform enemySpawnPointParent;
 
         [field: SerializeField]
         private HKUIDocument inGameDocument;
+
+        [field: SerializeField]
+        private AudioManager audioManager;
+
+        [Header("Gameplay Settings")]
 
         [field: SerializeField]
         private float enemyMoveDuration;
@@ -49,7 +56,7 @@ namespace tomagif
         private Vector3 cameraShakeStrength;
 
         [field: SerializeField]
-        private AudioManager audioManager;
+        private float gameTime;
 
         private PlayerController playerController;
 
@@ -67,9 +74,11 @@ namespace tomagif
 
         private int currentDifficultyLevel = 0;
 
-        private int score;
+        private readonly ReactiveProperty<int> score = new();
 
-        void Start()
+        private readonly ReactiveProperty<float> timeLimit = new();
+
+        async UniTask Start()
         {
             foreach (Transform spawnPoint in enemySpawnPointParent)
             {
@@ -78,15 +87,24 @@ namespace tomagif
                 enemyController.PlayIdleAnimation();
                 enemies.Add(enemyController);
             }
-            uiViewInGame = new UIViewInGame(inGameDocument);
-            uiViewInGame.Initialize();
-            uiViewInGame.Activate();
             playerController = new PlayerController(player);
+            uiViewInGame = new UIViewInGame(inGameDocument);
             playerController.PlayIdleAnimation();
-            score = 0;
-            uiViewInGame.SetScore(score);
+            score.Value = 0;
+            timeLimit.Value = gameTime;
+            uiViewInGame.Initialize();
+            uiViewInGame.Activate(timeLimit, gameTime, score, destroyCancellationToken);
             SetupEvidence();
-            BeginObserveJudgementButtonAsync(CancellationToken.None).Forget();
+
+            var gameScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken);
+            BeginObserveJudgementButtonAsync(gameScope.Token).Forget();
+            while (timeLimit.Value > 0 && !gameScope.IsCancellationRequested)
+            {
+                timeLimit.Value -= Time.deltaTime;
+                await UniTask.Yield(PlayerLoopTiming.Update);
+            }
+            gameScope.Cancel();
+            gameScope.Dispose();
         }
 
         private async UniTask BeginObserveJudgementButtonAsync(CancellationToken cancellationToken)
@@ -124,8 +142,7 @@ namespace tomagif
                         currentDifficultyLevel = Mathf.Min(currentDifficultyLevel + 1, evidenceCountMax - 1);
                     }
                     audioManager.PlaySfx("Correct");
-                    score++;
-                    uiViewInGame.SetScore(score);
+                    score.Value += 1;
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
