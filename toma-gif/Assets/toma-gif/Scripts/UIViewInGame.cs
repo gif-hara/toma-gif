@@ -115,14 +115,14 @@ namespace tomagif
             EffectIncorrect.gameObject.SetActive(false);
         }
 
-        public async UniTask ProcessGameOverAsync(int score, CancellationToken cancellationToken)
+        public async UniTask ProcessGameOverAsync(int score, string scoreFormat, CancellationToken cancellationToken)
         {
             document.Q<HKUIDocument>("EvidenceList").gameObject.SetActive(false);
             document.Q<HKUIDocument>("UIElement.Button.True").gameObject.SetActive(false);
             document.Q<HKUIDocument>("UIElement.Button.False").gameObject.SetActive(false);
             EffectGameOver.gameObject.SetActive(true);
             await UniTask.Delay(TimeSpan.FromSeconds(3.0f), cancellationToken: cancellationToken);
-            Result.Q<TMP_Text>("Score").text = score.ToString();
+            Result.Q<TMP_Text>("Score").text = string.Format(scoreFormat, score);
             Result.gameObject.SetActive(true);
             await Result.Q<HKUIDocument>("UIElement.Button.Retry").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);

@@ -65,6 +65,9 @@ namespace tomagif
         [field: SerializeField]
         private string comboFormat;
 
+        [field: SerializeField]
+        private string resultScoreFormat;
+
         private PlayerController playerController;
 
         private readonly List<EnemyController> enemies = new();
@@ -148,7 +151,7 @@ namespace tomagif
                 if (Application.isPlaying)
                 {
                     audioManager.PlaySfx("GameOver");
-                    await uiViewInGame.ProcessGameOverAsync(score.Value, sceneScope.Token);
+                    await uiViewInGame.ProcessGameOverAsync(score.Value, resultScoreFormat, sceneScope.Token);
                 }
             }
         }
