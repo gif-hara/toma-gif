@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u98F2\u9152\u904B\u8EE2\u3057\u305F\u3053\u3068\u304C\u3042\u308B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
-  m_sharedMaterial: {fileID: -7621177700258744374, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce6a99b5891e5be4fbebe12cc9740f16, type: 2}
+  m_sharedMaterial: {fileID: -5902348282888325079, guid: ce6a99b5891e5be4fbebe12cc9740f16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30.35
+  m_fontSize: 18
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -154,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 4439784471276363319}
     - target: {fileID: 1837513659309565264, guid: 587b97d0a44809842a55ab30592d62cc, type: 3}
       propertyPath: m_Name
-      value: UIElement.InformationList.Message
+      value: UIElement.EvidenceList.Message
       objectReference: {fileID: 0}
     - target: {fileID: 6713437938238883382, guid: 587b97d0a44809842a55ab30592d62cc, type: 3}
       propertyPath: m_Pivot.x
