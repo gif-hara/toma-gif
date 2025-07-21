@@ -1227,8 +1227,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 9999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 1e9439720e9cc0446882b2a05b4682c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0de7d7827aa42d142a17872663d3166d, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 39664c3d07937ee4e8a74e9f1fceb055, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1713,7 +1713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &838709134794693349
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1840,8 +1840,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u3042\u306A\u305F\u306E\n\u30AB\u30EA\u30B9\u30DE\u30DD\u30A4\u30F3\u30C8\u306F\u30FB\u30FB\u30FB"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
-  m_sharedMaterial: {fileID: -7621177700258744374, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce6a99b5891e5be4fbebe12cc9740f16, type: 2}
+  m_sharedMaterial: {fileID: -5902348282888325079, guid: ce6a99b5891e5be4fbebe12cc9740f16, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.05
+  m_fontSize: 37.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2117,7 +2117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4416466139091554604
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2918,8 +2918,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u305D\u3053\u307E\u3067\uFF01"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 1e9439720e9cc0446882b2a05b4682c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce6a99b5891e5be4fbebe12cc9740f16, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f2bbafd44a8f7584cb92570339c8ab34, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3895,18 +3895,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6121916333370164517}
     m_Modifications:
+    - target: {fileID: 184281262217491515, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 325275939645253619, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_Name
       value: UIElement.Button.Retry
       objectReference: {fileID: 0}
     - target: {fileID: 852585202058740906, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 852585202058740906, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 21300000, guid: ddcf8bb352c22344293bbc7275965f2c, type: 3}
     - target: {fileID: 942838514622146794, guid: 77aeb5a92c972c843bb19a798e4eb3d1, type: 3}
       propertyPath: m_text
       value: "\u3082\u3046\u4E00\u5EA6\uFF01"
