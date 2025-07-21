@@ -98,7 +98,7 @@ namespace tomagif
             uiViewInGame = new UIViewInGame(inGameDocument);
             var sceneScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken, Application.exitCancellationToken);
 
-            await uiViewInGame.ProcessTitleAsync(sceneScope.Token);
+            await uiViewInGame.ProcessTitleAsync(audioManager, sceneScope.Token);
 
             while (!sceneScope.IsCancellationRequested)
             {
@@ -128,7 +128,7 @@ namespace tomagif
                 if (isFirstPlay)
                 {
                     isFirstPlay = false;
-                    await uiViewInGame.ProcessTutorialAsync(sceneScope.Token);
+                    await uiViewInGame.ProcessTutorialAsync(audioManager, sceneScope.Token);
                 }
                 else
                 {

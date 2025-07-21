@@ -153,7 +153,7 @@ namespace tomagif
             document.Q<HKUIDocument>("TalkMessage").Q<TMP_Text>("Message").text = "";
         }
 
-        public async UniTask ProcessTitleAsync(CancellationToken cancellationToken)
+        public async UniTask ProcessTitleAsync(AudioManager audioManager, CancellationToken cancellationToken)
         {
             Title.gameObject.SetActive(true);
             CountDown.gameObject.SetActive(false);
@@ -162,6 +162,7 @@ namespace tomagif
             await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
             await Title.Q<HKUIDocument>("UIElement.Button.PlayGame").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);
+            audioManager.PlaySfx("Decision");
             await BeginFade(Color.clear, Color.black, 0.5f, cancellationToken);
             Title.gameObject.SetActive(false);
         }
@@ -187,16 +188,18 @@ namespace tomagif
             CountDown.gameObject.SetActive(false);
         }
 
-        public async UniTask ProcessTutorialAsync(CancellationToken cancellationToken)
+        public async UniTask ProcessTutorialAsync(AudioManager audioManager, CancellationToken cancellationToken)
         {
             await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
             var animator = Tutorial.Q<Animator>("Animator");
             Tutorial.gameObject.SetActive(true);
             animator.Play("In", 0, 0.0f);
+            audioManager.PlaySfx("Tutorial.1");
             await UniTask.Delay(TimeSpan.FromSeconds(40.0f / 60.0f), cancellationToken: cancellationToken);
             await Tutorial.Q<HKUIDocument>("UIElement.Button.AnyClick").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);
             animator.Play("Out", 0, 0.0f);
+            audioManager.PlaySfx("Tutorial.2");
             await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);
             Tutorial.gameObject.SetActive(false);
         }
