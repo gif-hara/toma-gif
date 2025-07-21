@@ -140,6 +140,7 @@ namespace tomagif
                 }
 
                 await uiViewInGame.ShowCountDownAsync(3, "Start!", audioManager, gameScope.Token);
+                audioManager.PlayBgm("InGame");
                 SetupEvidence();
 
                 BeginObserveJudgementButtonAsync(gameScope.Token).Forget();
