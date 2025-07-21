@@ -199,7 +199,7 @@ namespace tomagif
                     audioManager.PlaySfx("Correct");
                     score.Value += (currentDifficultyLevel + 1) * 100 + combo.Value * 20;
                     combo.Value++;
-                    UnityroomApiClient.Instance.SendScore(1, score.Value, ScoreboardWriteMode.HighScoreAsc);
+                    UnityroomApiClient.Instance.SendScore(1, score.Value, ScoreboardWriteMode.Always);
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
