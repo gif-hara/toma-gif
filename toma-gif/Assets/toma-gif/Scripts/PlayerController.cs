@@ -24,5 +24,10 @@ namespace tomagif
         {
             animator.Play("Attack");
         }
+
+        public void PlayToHeavenAnimation()
+        {
+            animator.Play("ToHeaven");
+        }
     }
 }
