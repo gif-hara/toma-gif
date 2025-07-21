@@ -1500,8 +1500,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "99<size=75%>\u30B3\u30F3\u30DC\uFF01</size>"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 1e9439720e9cc0446882b2a05b4682c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0de7d7827aa42d142a17872663d3166d, type: 2}
+  m_sharedMaterial: {fileID: -7559100384945907706, guid: 0de7d7827aa42d142a17872663d3166d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3743,8 +3743,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 99999
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6194126497f355b439f0fb623eba75fa, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 1e9439720e9cc0446882b2a05b4682c2, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0de7d7827aa42d142a17872663d3166d, type: 2}
+  m_sharedMaterial: {fileID: -7559100384945907706, guid: 0de7d7827aa42d142a17872663d3166d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
