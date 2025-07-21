@@ -182,6 +182,7 @@ namespace tomagif
                 }
                 else
                 {
+                    playerController.PlayToHeavenAnimation();
                     enemy.PlayGotoHeavenAnimation();
                     audioManager.PlaySfx("GotoHeaven");
                 }
