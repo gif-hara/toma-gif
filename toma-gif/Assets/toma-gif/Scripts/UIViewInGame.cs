@@ -160,6 +160,7 @@ namespace tomagif
             CountDown.gameObject.SetActive(false);
             Tutorial.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
+            audioManager.PlayBgm("Title");
             await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
             await Title.Q<HKUIDocument>("UIElement.Button.PlayGame").Q<Button>("Button")
                 .OnClickAsync(scope.Token);

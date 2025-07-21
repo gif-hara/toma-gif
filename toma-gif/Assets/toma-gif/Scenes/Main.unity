@@ -1414,7 +1414,9 @@ MonoBehaviour:
   sfxSource: {fileID: 936726688}
   audioMixer: {fileID: 24100000, guid: e4aac838cbac1b943bd346b800abd4c8, type: 2}
   bgm:
-    list: []
+    list:
+    - key: Title
+      clip: {fileID: 8300000, guid: 67aed64b18bf0be49b546abebc2c9378, type: 3}
   sfx:
     list:
     - key: GotoHell
