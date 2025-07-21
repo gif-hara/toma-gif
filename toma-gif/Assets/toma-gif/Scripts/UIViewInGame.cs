@@ -116,17 +116,22 @@ namespace tomagif
             EffectIncorrect.gameObject.SetActive(false);
         }
 
-        public async UniTask ProcessGameOverAsync(int score, string scoreFormat, CancellationToken cancellationToken)
+        public async UniTask ProcessGameOverAsync(int score, string scoreFormat, AudioManager audioManager, CancellationToken cancellationToken)
         {
+            audioManager.FadeOutBgmAsync(0.5f, cancellationToken).Forget();
+            audioManager.PlaySfx("GameOver");
             document.Q<HKUIDocument>("EvidenceList").gameObject.SetActive(false);
             document.Q<HKUIDocument>("UIElement.Button.True").gameObject.SetActive(false);
             document.Q<HKUIDocument>("UIElement.Button.False").gameObject.SetActive(false);
             EffectGameOver.gameObject.SetActive(true);
             await UniTask.Delay(TimeSpan.FromSeconds(3.0f), cancellationToken: cancellationToken);
+            audioManager.PlayBgm("Result");
             Result.Q<TMP_Text>("Score").text = string.Format(scoreFormat, score);
             Result.gameObject.SetActive(true);
             await Result.Q<HKUIDocument>("UIElement.Button.Retry").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);
+            audioManager.PlaySfx("Decision");
+            audioManager.FadeOutBgmAsync(0.5f, cancellationToken).Forget();
             await BeginFade(Color.clear, Color.black, 0.5f, cancellationToken);
         }
 

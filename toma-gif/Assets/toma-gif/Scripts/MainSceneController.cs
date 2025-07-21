@@ -155,8 +155,7 @@ namespace tomagif
                 // Editorのゲーム再生終了でも呼ばれる可能性があるため、プレイ中かどうかを確認
                 if (Application.isPlaying)
                 {
-                    audioManager.PlaySfx("GameOver");
-                    await uiViewInGame.ProcessGameOverAsync(score.Value, resultScoreFormat, sceneScope.Token);
+                    await uiViewInGame.ProcessGameOverAsync(score.Value, resultScoreFormat, audioManager, sceneScope.Token);
                 }
             }
         }
