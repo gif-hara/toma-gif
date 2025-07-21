@@ -193,7 +193,7 @@ namespace tomagif
             var animator = Tutorial.Q<Animator>("Animator");
             Tutorial.gameObject.SetActive(true);
             animator.Play("In", 0, 0.0f);
-            await UniTask.Delay(TimeSpan.FromSeconds(1.0f), cancellationToken: cancellationToken);
+            await UniTask.Delay(TimeSpan.FromSeconds(40.0f / 60.0f), cancellationToken: cancellationToken);
             await Tutorial.Q<HKUIDocument>("UIElement.Button.AnyClick").Q<Button>("Button")
                 .OnClickAsync(cancellationToken);
             animator.Play("Out", 0, 0.0f);
