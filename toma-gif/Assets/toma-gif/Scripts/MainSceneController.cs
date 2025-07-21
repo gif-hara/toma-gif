@@ -8,6 +8,7 @@ using LitMotion;
 using LitMotion.Extensions;
 using R3;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace tomagif
 {
@@ -32,6 +33,9 @@ namespace tomagif
 
         [field: SerializeField]
         private AudioManager audioManager;
+
+        [field: SerializeField]
+        private AudioMixer audioMixer;
 
         [Header("Gameplay Settings")]
 
@@ -98,7 +102,7 @@ namespace tomagif
             uiViewInGame = new UIViewInGame(inGameDocument);
             var sceneScope = CancellationTokenSource.CreateLinkedTokenSource(destroyCancellationToken, Application.exitCancellationToken);
 
-            await uiViewInGame.ProcessTitleAsync(audioManager, sceneScope.Token);
+            await uiViewInGame.ProcessTitleAsync(audioManager, audioMixer, sceneScope.Token);
 
             while (!sceneScope.IsCancellationRequested)
             {

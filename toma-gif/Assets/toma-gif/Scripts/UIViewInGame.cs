@@ -8,6 +8,7 @@ using LitMotion.Extensions;
 using R3;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 namespace tomagif
@@ -153,7 +154,7 @@ namespace tomagif
             document.Q<HKUIDocument>("TalkMessage").Q<TMP_Text>("Message").text = "";
         }
 
-        public async UniTask ProcessTitleAsync(AudioManager audioManager, CancellationToken cancellationToken)
+        public async UniTask ProcessTitleAsync(AudioManager audioManager, AudioMixer audioMixer, CancellationToken cancellationToken)
         {
             var scope = CancellationTokenSource.CreateLinkedTokenSource(document.destroyCancellationToken, cancellationToken);
             Title.gameObject.SetActive(true);
@@ -161,10 +162,23 @@ namespace tomagif
             Tutorial.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
             audioManager.PlayBgm("Title");
+            var bgmSlider = Title.Q<HKUIDocument>("UIElement.Slider.Bgm").Q<Slider>("Slider");
+            bgmSlider
+                .OnValueChangedAsObservable()
+                .Subscribe(x => audioMixer.SetFloat("BgmVolume", x > 0 ? Mathf.Log10(x) * 20 : -80))
+                .RegisterTo(scope.Token);
+            var sfxSlider = Title.Q<HKUIDocument>("UIElement.Slider.Sfx").Q<Slider>("Slider");
+            sfxSlider
+                .OnValueChangedAsObservable()
+                .Subscribe(x => audioMixer.SetFloat("SfxVolume", x > 0 ? Mathf.Log10(x) * 20 : -80))
+                .RegisterTo(scope.Token);
+            bgmSlider.value = 0.5f;
+            sfxSlider.value = 0.5f;
             await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
             await Title.Q<HKUIDocument>("UIElement.Button.PlayGame").Q<Button>("Button")
                 .OnClickAsync(scope.Token);
             audioManager.PlaySfx("Decision");
+            audioManager.FadeOutBgmAsync(0.5f, scope.Token).Forget();
             await BeginFade(Color.clear, Color.black, 0.5f, cancellationToken);
             Title.gameObject.SetActive(false);
             scope.Cancel();
