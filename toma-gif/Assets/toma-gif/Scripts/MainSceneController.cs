@@ -9,6 +9,7 @@ using LitMotion.Extensions;
 using R3;
 using UnityEngine;
 using UnityEngine.Audio;
+using unityroom.Api;
 
 namespace tomagif
 {
@@ -198,6 +199,7 @@ namespace tomagif
                     audioManager.PlaySfx("Correct");
                     score.Value += (currentDifficultyLevel + 1) * 100 + combo.Value * 20;
                     combo.Value++;
+                    UnityroomApiClient.Instance.SendScore(1, score.Value, ScoreboardWriteMode.HighScoreAsc);
                     await uiViewInGame.ShowEffectCorrectAsync(cancellationToken);
                 }
                 else
