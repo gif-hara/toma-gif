@@ -155,16 +155,19 @@ namespace tomagif
 
         public async UniTask ProcessTitleAsync(AudioManager audioManager, CancellationToken cancellationToken)
         {
+            var scope = CancellationTokenSource.CreateLinkedTokenSource(document.destroyCancellationToken, cancellationToken);
             Title.gameObject.SetActive(true);
             CountDown.gameObject.SetActive(false);
             Tutorial.gameObject.SetActive(false);
             LieMessage.gameObject.SetActive(false);
             await BeginFade(Color.black, Color.clear, 0.5f, cancellationToken);
             await Title.Q<HKUIDocument>("UIElement.Button.PlayGame").Q<Button>("Button")
-                .OnClickAsync(cancellationToken);
+                .OnClickAsync(scope.Token);
             audioManager.PlaySfx("Decision");
             await BeginFade(Color.clear, Color.black, 0.5f, cancellationToken);
             Title.gameObject.SetActive(false);
+            scope.Cancel();
+            scope.Dispose();
         }
 
         public async UniTask ShowCountDownAsync(int count, string startMessage, AudioManager audioManager, CancellationToken cancellationToken)
